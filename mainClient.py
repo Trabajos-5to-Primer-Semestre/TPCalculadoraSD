@@ -1,12 +1,13 @@
 import socket
 
-PORT = 666
+PORT = 6666
 HOST = "127.0.0.1"
 
-
+# Creates socket class element specifying the address family and socket type
+# Socket_stream = TCP / IP
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    # Connects to the socket
     s.connect((HOST, PORT))
-    # Converts the string into a byte string consisting of integers between 0 and 255
 
     run = 'yes'
 
@@ -14,7 +15,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
         expr = input('Ingrese la expresion matematica a evaluar: \n')
 
-        s.sendall(bytes(expr, encoding='utf8'))
+        # Serialize the user input to be sent into bytes and the we send it
+        expr = bytes(expr, encoding='utf8')
+        s.sendall(expr)
+
+        # The data is received and deserialized
         data = s.recv(1024).decode('utf8')
 
         print(f'El resultado es: {data}')
@@ -22,4 +27,3 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         run = input('Desea realizar otro calculo? [si/no]: \n')
         if run == 'no':
             s.sendall(bytes(run, encoding='utf8'))
-

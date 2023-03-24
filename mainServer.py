@@ -1,8 +1,10 @@
 import numexpr
 import socket
 
-PORT = 666
+PORT = 6666
 
+# Creates socket class element specifying the address family and socket type
+# Socket_stream = TCP / IP
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     # Binds an IP address and a port number to a socket instance and since the IP is empty it takes all ips
     s.bind(('', PORT))
@@ -16,14 +18,18 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
         while True:
 
+            # Receive the socket message, specifying the max amount of data
             data = conn.recv(1024)
+            # The received data is then deserialized into a string
             data = str(data.decode('utf-8'))
             print(data)
             if data == 'no':
                 print("Apagando servidor...")
                 break
 
+            # Perform the calculations needed
             data = str(numexpr.evaluate(data.replace('^', '**')))
+            # Serialize the data for sending back to the client
             data = bytes(data, encoding='utf8')
 
             conn.sendall(data)
