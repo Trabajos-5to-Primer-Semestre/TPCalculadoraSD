@@ -4,10 +4,10 @@ import socket
 PORT = 6666
 
 # Creates socket class element specifying the address family and socket type
-# Socket_stream = TCP / IP
+# Socket_stream = TCP
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     # Binds an IP address and a port number to a socket instance and since the IP is empty it takes all ips
-    s.bind(('', PORT))
+    s.bind(('127.0.0.1', PORT))
     # Listens for connection attempts
     s.listen()
     # Accepts the socket connection
