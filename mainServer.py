@@ -14,11 +14,18 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     with conn:  # With the open connection
         print(f"Connected by {addr}")
 
-        data = conn.recv(1024)
-        print(data)
-        print(data.decode('utf-8'))
-        data = data.decode('utf-8')
-        data = str(numexpr.evaluate(str(data).replace('^', '**')))
-        data = bytes(data, encoding='utf8')
+        while True:
 
-        conn.sendall(data)
+            data = conn.recv(1024)
+            data = str(data.decode('utf-8'))
+            print(data)
+            if data == 'no':
+                print("Apagando servidor...")
+                break
+
+            data = str(numexpr.evaluate(data.replace('^', '**')))
+            data = bytes(data, encoding='utf8')
+
+            conn.sendall(data)
+
+
