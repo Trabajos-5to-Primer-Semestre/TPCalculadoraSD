@@ -4,7 +4,7 @@ PORT = 6666
 HOST = "127.0.0.1"
 
 # Creates socket class element specifying the address family and socket type
-# Socket_stream = TCP / IP
+# Socket_stream = TCP
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     # Connects to the socket
     s.connect((HOST, PORT))
