@@ -15,7 +15,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
         expr = input('Ingrese la expresion matematica a evaluar: \n')
 
-        # Serialize the user input to be sent into bytes and then we send it
+        # Serialize the user input to be sent into bytes, and then we send it
         expr = bytes(expr, encoding='utf8')
         s.sendall(expr)
 
